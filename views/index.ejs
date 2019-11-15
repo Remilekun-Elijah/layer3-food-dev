@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#dc3545">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href='assets/codes/css/style.css'>
+
+        <link href='assets/library/font-awesome-4.7.min.css' rel="stylesheet" type="text/css">
+
+        <link href='assets/library/animate-3.7.min.css' rel="stylesheet" type="text/css">
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='assets/library/bootstrap-4.min.css' type='text/css' rel="stylesheet">
+
+
+        <link rel="shortcut icon" href="assets/images/images.png">
+        <title>Home | Layer3-Food</title>
+
+          <!-- register service worker -->
+          <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/service-worker.js')
+                        .then(function () {
+                            console.log("Service Worker Registered, Cheers to PWA Fire!");
+                        });
+                });
+            }
+        </script>
+        <!-- end of service worker -->
+
+        <!-- start of web manifest -->
+        <link rel="manifest" href="/manifest.json">
+        <!-- end of web manifest -->
+
+
+        <style>
+            .mb-5 img{
+                width: 400px;
+            }
+            @media(max-width: 768px){
+                .col-12 .display-4{
+                    text-align: center;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+            <!-- Navbar section -->
+         
+            <!-- Log Out Modal-->
+            <div class="modal fade" id="logoutModal">
+                <div class="modal-dialog modal-dialog-centerd animated swing">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <h3>Are you sure ?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss='modal' class="btn pull-left">Not yet</button>
+                            <button class="btn btn-danger pull-right" id='logout' data-dismiss="modal">Yes sure!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Settings Modal -->
+            <div class="modal fade h-100 w-100" id="updateModal">
+                <div class="modal-dialog animated bounceInUp">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <h4 class="modal-title text-white">Profile</h4>
+                            <button data-dismiss="modal" class="fa close text-white">
+                                &times;
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class=" card">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link active text-danger" style="color:#dc3545 !important" id="info"> Your info</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" id="orders" class="nav-link text-danger" style="color:#dc3545 !important">Orders</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4 mx-3">
+                                    <!-- info start -->
+                                    <div class="card-body bg-danger text-center mt-4" id="infoPanel">
+                                        <h3 class="text-white"><i class="fa fa-user fa-2x "></i> </h3>
+                                        <p class="text-white"> Update your information</p>
+                                        <form>
+                                            <!-- Name -->
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Name" id='updateName' autocomplete="name" class="form-control form-control-lg" required>
+                                                <p id="NameMsg"></p>
+                                            </div>
+                                            <!-- Email -->
+                                            <div class="form-group">
+                                                <input type="email" placeholder="Email Address" id='updateEmail' autocomplete="email" class="form-control form-control-lg"
+                                                 required>
+                                                <p id="EmailMsg"></p>
+                                            </div>
+                                            <!-- Number -->
+                                            <div class="form-group">
+                                                <input type="tel" placeholder="Phone Number" class="form-control form-control-lg" id='updateNumber' autocomplete="tel" required>
+                                                <p id="NumberMsg"></p>
+                                            </div>
+    
+                                            <input type="submit" class="btn btn-block btn-outline-light form-control" value="Update" id='updateSubmit'
+                                             data-target="#" data-toggle="modal" data-backdrop="static" disabled>
+                                        </form>
+                                    </div>
+                                    <!-- info Ends -->
+    
+                                    <!-- orders start -->
+                                    <div class="card-body  mt-1" id="orderPanel">
+                                        <div class="container">
+                                            <h4 class="text-dark"> Your Orders (3)</h4>
+                                            <hr>
+                                            <ol class="mb-4">
+                                                <li>Order <a href='#' class="text-warning font-weight-bold ">32156</a></li>
+                                                <li>Order <a href="#" class="text-warning font-weight-bold ">33267</a></li>
+                                                <li>Order <a href="#" class="text-warning font-weight-bold ">34145</a></li>
+                                            </ol>
+                                            <p class="text-muted">Coming Soon...</p>
+                                        </div>
+    
+                                    </div>
+                                    <!-- orders Ends -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Settings modal Ends -->
+    
+        <header id="home" class="pb-5">
+            <div class="dark-overlay">
+                <div class='text-light' id="home-inner">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <h1 class="display-4 text-sm-center"><i class="fa fa-quote-left"></i> <b>An hour break</b>
+                                    sure can't
+                                    be enough in that massive queue <i class="fa fa-quote-right"></i></h1>
+                            </div>
+                        </div>
+                        <div class="row pt-5 mq">
+                            <div class="col-lg-8">
+                                <div class="d-flex flex-row">
+                                    <div class="p-4 align-self-start">
+
+                                        <i class="fa fa-check-circle"></i>
+                                    </div>
+                                    <div class="p-4 align-self-end">
+                                        We offer chance of continuous work without being worried of what to eat.
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-row">
+                                    <div class="p-4 align-self-start">
+                                        <i class="fa fa-check-circle"></i>
+                                    </div>
+                                    <div class="p-4 align-self-end">
+
+                                        Efficient delivery time with high priority.
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-row  pb">
+                                    <div class="p-4 align-self-start">
+
+                                        <i class="fa fa-check-circle"></i>
+                                    </div>
+                                    <div class="p-4 align-self-end"> and it's 100 percent stress free.
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- end col -->
+
+
+
+                            <div class="col-lg-4">
+                                <div class="mb-5 ">
+                                    <!-- img1 -->
+                                    <div class="container-fluid text-center d-none img1" style="opacity:0">
+                                        <img src="assets/images/people/McD.jpg" alt="" class="img-fluid rounded-circle">
+                                        <i class="fa fa-caret-down text-secondary fa-2x d-block"></i>
+                                        <p class="lead">
+                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit. Perferendis, soluta?
+                                            <i class="fa fa-quote-right"></i>
+                                        </p>
+                                    </div>
+                                    <!-- img1 Ends -->
+
+                                    <!-- img2 -->
+                                    <div class="container-fluid text-center d-none img2" style="opacity:0">
+                                        <img src="assets/images/people/Mr Frank L3 20190128_024740.jpg" alt="" class="img-fluid rounded-circle">
+                                        <i class="fa fa-caret-down text-secondary fa-2x d-block"></i>
+                                        <p class="lead">
+                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit. Perferendis, soluta?
+                                            <i class="fa fa-quote-right"></i>
+                                        </p>
+                                    </div>
+                                    <!-- img2 Ends -->
+
+
+                                    <!-- img3 -->
+                                    <div class="container-fluid text-center d-none img3" style="opacity:0">
+                                        <img src="assets/images/people/Mr Chinedu L3 20190128_024853.jpg" alt="" class="img-fluid rounded-circle">
+                                        <i class="fa fa-caret-down text-secondary fa-2x d-block"></i>
+                                        <p class="lead">
+                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit. Perferendis, soluta?
+                                            <i class="fa fa-quote-right"></i>
+                                        </p>
+                                    </div>
+                                    <!-- img3 Ends -->
+
+                                    <!-- img4 -->
+                                    <div class="container-fluid text-center d-none img4" style="opacity:0">
+                                        <img src="assets/images/people/Mr Edwin Whatsapp 20190128_024954.jpg" alt="" class="img-fluid rounded-circle">
+                                        <i class="fa fa-caret-down text-secondary fa-2x d-block"></i>
+                                        <p class="lead">
+                                            <i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit. Perferendis, soluta?
+                                            <i class="fa fa-quote-right"></i>
+                                        </p>
+                                    </div>
+                                    <!-- img4 Ends -->
+                                    <a href="#" id="regHere"></a>
+                                    <div class="card bg-danger text-center card-form">
+                                        <div class="card-body">
+                                            <h3><i class="fa fa-user fa-2x"></i> </h3>
+                                            <p> Please fill out the form to register</p>
+                                            <form>
+                                                <!-- Name -->
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Name" id='signUpName' class="form-control form-control-lg"
+                                                        required>
+                                                    <p id="NameMsg"></p>
+                                                </div>
+                                                <!-- Email -->
+                                                <div class="form-group">
+                                                    <input type="email" placeholder="Email Address" id='signUpEmail'
+                                                        class="form-control form-control-lg" required>
+                                                    <p id="EmailMsg"></p>
+                                                </div>
+                                                <!-- Number -->
+                                                <div class="form-group">
+                                                    <input type="tel" placeholder="Phone Number" class="form-control form-control-lg"
+                                                        id='signUpNumber'  require>
+                                                    <p id="NumberMsg"></p>
+                                                </div>
+
+                                                <input type="submit" class="btn btn-outline-light btn-block form-control"
+                                                    value="Submit" id='signUpSubmit' data-target="#signingUp"
+                                                    data-toggle="modal" data-backdrop="static" disabled>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- signing up modal -->
+                                <div class="modal fade" id="signingUp">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-dark rounded-0"></div>
+                                            <div class="modal-body">
+                                                <div class=" parent text-center">
+                                                    <h3 class=" text-dark" id="text">
+                                                        Registering your details...
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <br><br>
+
+        <div class="footer py-2 px-3 m mt-3 home-location" style="border-radius: 0 !important; ">
+            <div class="row">
+
+                <div class="col-lg-3 col-xl-3 col-md-5 col-sm-5  card card-body shadow-lg mx-auto">
+                    <div class="">
+                        <img src="assets/images/ms-jollof-rice.jpeg" alt="porridge beans" srcset="" class='card-img' height="180">
+                    </div>
+                        
+                    <div class="card-title">
+
+                        <p class="d-flex justify-content-between ">
+                            <b class="d-flex align-items-center"> <i class='fa fa-map-marker text-danger lead'> </i><span class="text-hidden">_</span>Moshood</b> 
+                            <strong class="shadow-sm bg-white px-1 rounded-left" style="position:relative; bottom:1.3em;">
+                                <i class="fa fa-truck text-danger "></i> 30mins
+                            </strong>
+                        </p>
+                        
+                        <span>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star-half-o text-danger' style='font-size: 18px'></i>
+                            <b>Rated 4.5</b>
+                        </span>
+                    </div>
+                    <div class="card-subtitle">
+                        <p class='text-secondary description'><i class="fa fa-cutlery text-danger" style='font-size: 18px'></i>
+                            Egusi Soup, Ewedu Soup, Vegetable Soup, Jollof & White Rice, Beans Porridge, Yam porridge, Salad...
+                            </p>
+                    </div>
+                    <a href="location/moshood.ejs" class="nav-link"><button class='btn btn-block btn-outline-danger'>Order</button></a> 
+                </div>
+
+                <div class="col-lg-3 col-xl-3 col-md-5 col-sm-5  card card-body shadow-lg mx-auto margin-top-sm-5 mt-md-0 mt-sm-0">
+                    <div class="">
+                        <img src="assets/images/boli1.jpg" alt="amala" srcset="" class='card-img' height="180">
+                    </div>
+                   
+                    <div class="card-title">
+
+                            <p class="d-flex justify-content-between ">
+                                <b class="d-flex align-items-center"> <i class='lead fa fa-map-marker text-danger'> </i><span class="text-hidden">_ </span> Jide Oki</b> 
+                                <strong class="shadow-sm bg-white px-1 rounded-left" style="position:relative; bottom:1.3em;">
+                                    <i class="fa fa-truck text-danger "></i> 12mins
+                                </strong>
+                        </p>
+
+                        <span>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star lead text-danger' ></i>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star-half-o text-danger' style='font-size: 18px'></i>
+                            <i class='fa fa-star-o text-danger'></i>
+                            <b>Rated 3.5</b> </span>
+                    </div>
+                    <div class="card-subtitle">
+                        <p class='text-secondary description'><i class="fa fa-cutlery text-danger" style=' font-size: 18px'></i>
+                            Roasted Plantain, Roasted Yam, Roasted Potato, Sauce, boiled corn, Fish, Kpomo,
+                            Groundnut...</p>
+                    </div>
+                    <a class='nav-link' href='location/jide-oki.ejs'><button class='btn btn-block btn-outline-danger'>Order</button></a>
+                </div>
+
+                <div class="col-lg-3 col-xl-3 col-md-5 col-sm-5 card card-body shadow-lg mx-auto margin-top-sm-5 mt-sm-5 mt-lg-0">
+                    <div class="">
+                        <img src="assets/images/amala2.jpeg" alt="amala" srcset="" class='card-img' height="180">
+                    </div>
+                    
+                    <div class="card-title">
+
+                            <p class="d-flex justify-content-between "> 
+                                <b class="d-flex align-items-center"> <i class='lead fa fa-map-marker text-danger'> </i><span class="text-hidden">_ </span> Landmark</b> 
+                                <strong class="shadow-sm bg-white px-1 rounded-left" style="position:relative; bottom:1.3em;">
+                                    <i class="fa fa-truck text-danger "></i> 15mins
+                                </strong>
+                         </p>
+
+                        <span>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star lead text-danger'></i>
+                            <i class='fa fa-star-o text-danger'></i>
+                            <b>Rated 4.0</b> </span>
+                    </div>
+                    <div class="card-subtitle">
+                        <p class='text-secondary description '><i class="fa fa-cutlery text-danger" style='font-size: 18px'></i>
+                            Rice, Beans, Plantain, Amala, Fufu, Gbegiri, Ewedu, Vegetable, Goat Meat, Cow meat...</p>
+                    </div>
+                    <a href="location/landmark.ejs" class="nav-link"><button class='btn btn-block btn-outline-danger'>Order</button></a>
+                </div>
+           
+                <div class="col-lg-4 col-xl-4 col-md-5 col-sm-5 card card-body shadow-lg mx-auto mt-sm-5 margin-top-sm-5">
+                    <div class="">
+                        <img src="assets/images/coconut_rice.jpeg" alt="amala" srcset="" class='card-img' height="180">
+                    </div>
+                        
+                    <div class="card-title">
+
+                        <p class="d-flex justify-content-between ">
+                            <b class="d-flex align-items-center"> <i class='fa fa-map-marker text-danger lead'> </i><span class="text-hidden">_ </span> Law School</b> 
+                            <strong class="shadow-sm bg-white px-1 rounded-left" style="position:relative; bottom:1.3em;">
+                                <i class="fa fa-truck text-danger "></i> 1hour
+                            </strong>
+                        </p>
+
+                        <span>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i>
+                            <i class='fa fa-star text-danger lead'></i> <b>Rated 5.0</b>
+                        </span>
+                    </div>
+                    <div class="card-subtitle">
+                        <p class='text-secondary description'><i class="fa fa-cutlery text-danger" style='font-size: 18px'></i>
+                            Rice, Beans, Salad, Moin Moin, Plantain, Semo, Wheat, Amala, Fufu, Afang, Oha, Egusi...</p>
+                    </div>
+                    <a class='nav-link' href='location/law-school.ejs'><button class='btn btn-block btn-outline-danger'>Order</button></a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <script src="assets/codes/js/navbar.js"></script>
+        <script src="assets/codes/js/footer.js"></script>
+        <script src="assets/codes/js/user.js"></script>
+      
+        <script src="assets/library/popper.min.js"></script>
+        <script src="assets/library/jquery-3.3.1.min.js"></script>
+        <script src="assets/library/bootstrap-4.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+
+                let scrollEv = function () {
+                    let hash = document.getElementById('regHere');
+                    $('html').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 1000, function () {
+                        document.getElementById('signUpName').focus()
+                    })
+                };
+
+
+                if (localStorage.getItem('user') === null) {
+                    scrollEv();
+
+                    $('#login').on('click', e => {
+                        e.preventDefault();
+                        scrollEv();
+                    });
+
+                }
+
+                
+                function verifyForm(name, email, number, submit, callback) {
+
+function inputChecker(element, condition, el, text, callback) {
+  $(el).css('text-shadow', '-1px -1px 7px #aaa');
+  $(el).css('box-shadow', '10px 4px 20px 0px rgba(0, 0, 0, 0.2)');
+
+  if (condition) {
+    setTimeout(() => {
+      element.css('border', '0px solid transparent');
+      $(el).text('');
+
+    }, 2000);
+
+  } else if (!condition) {
+    //  alert(email.val());
+    element.css('border', '0px solid transparent');
+    $(el).text('Checking...');
+    $(el).css('color', 'white');
+    setTimeout(() => {
+      element.css('border', '1px solid #de2525');
+      // submit.prop('disabled', true);
+      $(el).text(text);
+      $(el).css('color', 'white');
+
+
+    }, 2000);
+
+  }
+
+  if (name.val() && email.val().includes('@') && email.val().includes('.') && number.val() && number.val().length === 11 || number.val().length === 14) {
+
+
+    submit.prop('disabled', false);
+    callback;
+  } else {
+    submit.prop('disabled', true);
+
+  }
+}
+
+name.on('keyup', () => {
+  inputChecker(name, name.val(),'.card-form #NameMsg', 'Please fill out this field');
+
+});
+
+email.on('keyup', () => {
+
+  inputChecker(email, email.val().includes('@') && email.val().includes('.'), '.card-form #EmailMsg', 'Please use a valid email');
+});
+let v, b;
+number.on('keyup', () => {
+  if (!isNaN(Number(number.val()))) {
+
+    inputChecker(number, number.val() && number.val().length === 11 || number.val().length == 14, '.card-form #NumberMsg', `Number is incorrect`, function () {
+      if (number.val().length == 11) {
+        b = number.val();
+        console.log('b: ' + b);
+      } else if (b == undefined) {
+        b = '000000000';
+      }
+
+      if (number.val()[0] == '2' && number.val()[1] == '3' && number.val()[2] == '4' && number.val().length == 13) {
+        number.val(`+${number.val()}`);
+        alert(number.val());
+       
+      }
+      if (number.val()[0] !== '+' && number.val()[0] !== '2' && number.val()[1] !== '3' && number.val()[2] !== '4' && number.val().length == 14) {
+
+        number.val('+23' + b);
+        number.val(number.val().replace(`${number.val()[3]}`, '4'));
+
+        v = number.val();
+      }
+
+
+      if (number.val().length > 14) {
+        number.val(v);
+        $('.card-form #NumberMsg').text(`Number must be less than ${number.val().length}`);
+      }
+
+
+    });
+  } else {
+    $('.card-form #NumberMsg').text(`This field must contain only numbers`);
+  }
+});
+
+if ($('#updateSubmit')) submit.on('click', callback);
+}
+
+const $name = $('#signUpName'),
+		$email = $('#signUpEmail'),
+		$number = $('#signUpNumber'),
+        $submit = $('#signUpSubmit');
+
+        verifyForm($name, $email, $number, $submit);
+            })
+        </script>
+        
+    </body>
+
+</html>
