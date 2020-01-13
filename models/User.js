@@ -24,11 +24,11 @@ const userSchema = Schema({
     required: true
   },
   active: {
-    type: Boolean
+    type: Number
   }
 });
 
 // creating model
 
-let User = new model("user", userSchema);
+let User = mongoose.model("user", userSchema);
 module.exports = User;
