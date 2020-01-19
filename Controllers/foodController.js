@@ -5,16 +5,16 @@ exports.insertFood = function(req, res) {
   const { place, name, address, food_name, img, price, min, desc } = req.body;
 
   let food = new Food({
-    food_name: "Amala Soup",
-    img: "No Image for now",
-    price: "#600",
-    min: "-500",
-    desc: " if you need a good food , you know where to come",
+    food_name: food_name,
+    img: img,
+    price: price,
+    min: min,
+    desc: desc,
     location: [
       {
-        place: "Lagos",
-        name: "Iya Oyo",
-        address: "SDP junction Gwags"
+        place: place,
+        name: name,
+        address: address
       }
     ]
   });
@@ -28,7 +28,9 @@ exports.insertFood = function(req, res) {
     })
     .catch(err => {
       if (err) {
-        throw err;
+        res.json({
+          err: err
+        });
       }
     });
 };

@@ -1,13 +1,18 @@
 let User = require("../models/User");
 
 exports.insertUser = function(req, res) {
+  const firstname = req.body.firstname,
+    lastname = req.body.lastname,
+    email = req.body.email,
+    password = req.body.password,
+    profile_img = req.body.profile_img;
+
   let user = new User({
-    firstname: "Lukman ",
-    lastname: "Isiaka",
-    email: "isiakalukmandellyson@gmail.com",
-    password: "User12345",
-    profile_img: "user.jpg",
-    active: 1
+    firstname,
+    lastname,
+    email,
+    password,
+    profile_img
   });
   user
     .save()
@@ -19,7 +24,7 @@ exports.insertUser = function(req, res) {
     .catch(err => {
       res.json({
         message: " Unable to save user",
-        err: err
+        err: errors
       });
     });
 };
