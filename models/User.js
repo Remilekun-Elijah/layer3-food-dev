@@ -22,10 +22,13 @@ const userSchema = Schema({
   profile_img: {
     type: String,
     required: true
+  },
+  active: {
+    type: Number
   }
 });
 
 // creating model
 
-let User = new model("user", userSchema);
+let User = mongoose.model("user", userSchema);
 module.exports = User;

@@ -2,6 +2,21 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const foodSchema = new Schema({
+  food_name: {
+    type: String
+  },
+  img: {
+    type: String
+  },
+  price: {
+    type: String
+  },
+  min: {
+    type: String
+  },
+  desc: {
+    type: String
+  },
   location: [
     {
       place: {
@@ -11,27 +26,6 @@ const foodSchema = new Schema({
         type: String
       },
       address: {
-        type: String
-      }
-    }
-  ],
-
-  food: [
-    {
-      food_name: {
-        type: String
-      },
-
-      img: {
-        type: String
-      },
-      price: {
-        type: String
-      },
-      min: {
-        type: String
-      },
-      desc: {
         type: String
       }
     }
