@@ -6,7 +6,7 @@ exports.insertFood = function(req, res) {
 
   let food = new Food({
     food_name: food_name,
-    img: img,
+    img: req.file.path,
     price: price,
     min: min,
     desc: desc,
@@ -20,8 +20,8 @@ exports.insertFood = function(req, res) {
   });
 
   food
-    .save()
-    .then(response => {
+    .save(response)
+    .then(() => {
       res.json({
         message: " Saved successfully"
       });

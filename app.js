@@ -1,11 +1,13 @@
 var createError = require("http-errors");
 var express = require("express");
-const app = express();
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
+// CORS
+app.use(cors());
 
 // Body Parser
 app.use(
@@ -18,11 +20,6 @@ app.use(bodyParser.json());
 const mongoDB = require("./Config/mongodb");
 mongoDB.connect();
 
-// Loading routes
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/user");
-let foodRouter = require("./routes/food");
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -32,6 +29,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Loading routes
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/user");
+let foodRouter = require("./routes/food");
 
 // Using routes
 app.use("/", indexRouter);

@@ -18,14 +18,32 @@ const validationRule = () => {
       .withMessage("use a valid email address"),
     check("password", "Your password must be at least 5 characters")
       .not()
+      .isEmpty(),
+
+    check("food_name", "Food Name is required")
+      .not()
+      .isEmpty(),
+    check("img", "Food Image is required")
+      .not()
+      .isEmpty(),
+    check("price", "Food Price is required")
+      .not()
+      .isEmpty(),
+    check("min", "Food minimum amount is required")
+      .not()
+      .isEmpty(),
+    check("desc", "Food Description is required")
+      .not()
+      .isEmpty(),
+    check("place", "Place  is required")
+      .not()
+      .isEmpty(),
+    check("name", "location name is required")
+      .not()
+      .isEmpty(),
+    check("address", "Address is required")
+      .not()
       .isEmpty()
-    // // body("email").custom(value => {
-    // //   return User.findUserByEmail(value).then(user => {
-    // //     if (user) {
-    // //       return Promise.reject("Email already in use");
-    // //     }
-    // //   });
-    // })
   ];
 };
 
