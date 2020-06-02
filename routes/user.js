@@ -1,9 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const { insertFood, getFood } = require("../Controllers/foodController");
+var express = require("express");
+var router = express.Router();
 const multer = require("multer");
+
+const {
+  getUser,
+  getUserByID,
+  insertUser
+} = require("../Controllers/userController");
 const { validate, validationRule } = require("../Config/validator");
-let Food = require("../models/Food");
+
 // Multer
 
 const storage = multer.diskStorage({
@@ -29,13 +34,15 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-router.get("/", (req, res) => {
-  res.json({
-    message: " Food route"
-  });
-});
-
-router.post("/add", upload.single("food_img"), insertFood);
-router.get("/get", getFood);
+/* GET users listing. */
+router.get("/get", getUser);
+router.get("/get/:id", getUserByID);
+router.post(
+  "/create",
+  upload.single("profile_img"),
+  validationRule(),
+  validate,
+  insertUser
+);
 
 module.exports = router;

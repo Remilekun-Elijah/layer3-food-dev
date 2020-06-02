@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 //  Defining the userSchema
-const userSchema = Schema({
+const userSchema = mongoose.Schema({
   firstname: {
     type: String,
     required: true
@@ -22,13 +21,10 @@ const userSchema = Schema({
   profile_img: {
     type: String,
     required: true
-  },
-  active: {
-    type: Number
   }
 });
 
 // creating model
 
-let User = mongoose.model("user", userSchema);
+let User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -3,17 +3,22 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
+// CORS
+app.use(cors());
+
+// Body Parser
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 // MongoDB Connection
 const mongoDB = require("./Config/mongodb");
 mongoDB.connect();
-
-// Loading routes
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-let foodRouter = require("./routes/food");
-
-var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -25,9 +30,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Loading routes
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/user");
+let foodRouter = require("./routes/food");
+
 // Using routes
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/user", usersRouter);
 app.use("/food", foodRouter);
 
 // catch 404 and forward to error handler
